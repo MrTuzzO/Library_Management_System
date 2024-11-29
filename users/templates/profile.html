@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block body %}
+    <h1 class="mb-4">Profile Information</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Balance:</strong> {{ user.userprofile.balance }} Taka</p>
+            <a href="{% url 'deposit_money' %}" class="btn btn-primary">Deposit Money</a>
+            <a href="{% url 'edit_profile' %}" class="btn btn-secondary ms-2">Edit Profile</a>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Borrowing History</h2>
+    {% if borrow_history %}
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Transaction ID</th>
+                <th scope="col">Book Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Return</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for history in borrow_history %}
+                <tr>
+                    <td>{{ history.id }}</td>
+                    <td>{{ history.book.title }}</td>
+                    <td>{{ history.book.borrowing_price }} Taka</td>
+                    <td>{{ history.borrow_date|date:"M d, Y" }}</td>
+                    <td>
+                        {% if not history.return_date %}
+                            <a href="{% url 'return_book' history.id %}" class="btn btn-warning btn-sm">Return</a>
+                        {% else %}
+                            <span>Returned . {{ history.return_date|date:"M d, Y" }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No borrowing history available.</p>
+    {% endif %}
+
+{% endblock %}

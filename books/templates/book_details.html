@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="{{ book.image.url }}" style="height: 500px; object-fit: cover"
+                         class="img-fluid rounded-start" alt="{{ book.title }}">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">{{ book.description }}</p>
+                        <p><strong>Categories:</strong>
+                            {% for cat in book.categories.all %}
+                                <span class="badge text-bg-secondary">{{ cat.name }}</span>
+                            {% endfor %}
+                        </p>
+                        <p><strong>Price:</strong> {{ book.borrowing_price }} Taka</p>
+                        {% if request.user.is_authenticated %}
+                        	<a href="{% url 'borrow_book' book.id %}" class="btn btn-primary">Borrow</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Reviews</h2>
+    <ul class="list-group" style="max-width: 500px">
+        {% for review in reviews %}
+            <li class="list-group-item">
+                <strong>{{ review.user.username }}</strong> - {{ review.rating }}/5
+                <p>{{ review.review_text }}</p>
+                <p class="text-muted">{{ review.review_date }}</p>
+            </li>
+        {% empty %}
+            <p>No reviews yet.</p>
+        {% endfor %}
+    </ul>
+
+    <h3 class="mt-4">Add a Review</h3>
+    {% if has_borrowed %}
+        <form style="max-width: 500px" method="post" action="{% url 'add_review' book.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="review_text" class="form-label">Review</label>
+                <textarea name="review_text" id="review_text" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="number" name="rating" id="rating" class="form-control" min="1" max="5">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% else %}
+        <p class="text-muted">You can only review this book if you have borrowed it.</p>
+    {% endif %}
+
+{% endblock %}

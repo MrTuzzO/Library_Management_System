@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Deposit Money</h1>
+
+    <form method="post" style="max-width: 500px; margin: auto">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="amount" class="form-label">Enter Amount</label>
+            <input type="number" step="10" name="amount" id="amount" class="form-control" placeholder="Enter amount to deposit" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Deposit</button>
+    </form>
+</div>
+{% endblock %}

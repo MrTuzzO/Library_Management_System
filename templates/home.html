@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Home - Library{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <h1>Welcome to the Library Management System</h1>
+        <p class="lead">Browse, borrow, and review your favorite books!</p>
+    </div>
+
+    <form method="get" class="mb-3 w-25">
+        <select name="category" class="form-select" onchange="this.form.submit();">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}"
+                        {% if request.GET.category|default:'' == category.id|stringformat:"s" %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for book in books %}
+            <div class="col mb-4">
+                <div class="card">
+                    <img style="height: 250px; object-fit: cover" src="{{ book.image.url }}" class="card-img-top"
+                         alt="{{ book.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title|truncatechars:80 }}</h5>
+                        <p class="card-text">{{ book.description|truncatechars:100 }}</p>
+                        <p class="card-text">Price: {{ book.borrowing_price }}</p>
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">Book Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No books found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
