@@ -165,9 +165,5 @@ CSRF_TRUSTED_ORIGINS = [
     'https://library-management-system-xobv.onrender.com'
 ]
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
