@@ -159,6 +159,15 @@ EMAIL_HOST_USER = env('EMAIL_HOST')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
 
 
+# CSRF bug
+
 CSRF_TRUSTED_ORIGINS = [
-    'https://library-management-system-xobv.onrender.com/'
+    'https://library-management-system-xobv.onrender.com'
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
