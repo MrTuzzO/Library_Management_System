@@ -157,3 +157,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = env('EMAIL_HOST')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://library-management-system-xobv.onrender.com/'
+]
