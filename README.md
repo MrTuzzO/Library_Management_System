@@ -1,7 +1,7 @@
-# Library Management System
+# Simple Library Management System
 
 ## Overview
-The **Library Management System** is a web-based application designed to manage library operations efficiently. It allows users to browse available books, manage transactions, and maintain user profiles. The platform features user authentication, book management, transaction tracking, and administrative controls.
+The **Library Management System** is a web-based application designed to manage library simple operations. It allows users to browse available books, manage transactions, and maintain user profiles. The platform features user authentication, book management, transaction tracking, and administrative controls.
 
 ## Features
 - **User Authentication:** Secure login and registration functionalities for users.
